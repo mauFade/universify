@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export function ThemeToggle() {
+const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
@@ -31,4 +31,6 @@ export function ThemeToggle() {
       </TooltipContent>
     </Tooltip>
   );
-}
+};
+
+export default ThemeToggle;

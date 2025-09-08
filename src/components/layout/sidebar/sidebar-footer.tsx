@@ -51,7 +51,7 @@ const SidebarFooterContent = () => {
       <DropdownMenuContent
         side={isMobile ? "top" : "right"}
         align={isMobile ? "end" : "start"}
-        className={cn(isMobile ? "w-60" : "w-56", !isMobile && "ml-1 mb-2.5")}
+        className={cn(isMobile ? "w-64" : "w-56", !isMobile && "ml-1 mb-2.5")}
         sideOffset={isMobile ? 8 : 14}
       >
         <DropdownMenuItem>

@@ -28,7 +28,7 @@ const SidebarFooterContent = () => {
             />
             <AvatarFallback>MF</AvatarFallback>
           </Avatar>
-          <div className="flex-1 text-left min-w-0">
+          <div className="flex-1 text-left min-w-0 group-data-[collapsible=icon]:hidden">
             <p className="text-sm font-medium text-sidebar-foreground truncate">
               mauFade
             </p>
@@ -37,12 +37,12 @@ const SidebarFooterContent = () => {
             </p>
           </div>
           <ChevronUp
-            className={`h-4 w-4 text-sidebar-foreground/60 transition-all ${
+            className={`h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden ${
               isDropdownOpen ? "-rotate-90 scale-0" : "rotate-0 scale-100"
             }`}
           />
           <ChevronDown
-            className={`absolute right-2 h-4 w-4 text-sidebar-foreground/60 transition-all ${
+            className={`absolute right-2 h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden ${
               isDropdownOpen ? "rotate-0 scale-100" : "rotate-90 scale-0"
             }`}
           />

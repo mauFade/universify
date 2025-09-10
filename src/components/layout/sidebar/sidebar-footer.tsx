@@ -20,8 +20,8 @@ const SidebarFooterContent = () => {
   return (
     <DropdownMenu onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger className="w-full focus:outline-none focus:ring-0">
-        <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-sidebar-accent hover:cursor-pointer hover:text-sidebar-accent-foreground transition-colors relative">
-          <Avatar className="h-8 w-8">
+        <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-sidebar-accent hover:cursor-pointer hover:text-sidebar-accent-foreground transition-colors relative group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1">
+          <Avatar className="h-8 w-8 group-data-[collapsible=icon]:h-6 group-data-[collapsible=icon]:w-6">
             <AvatarImage
               src="https://www.github.com/mauFade.png"
               alt="User avatar"
@@ -37,14 +37,16 @@ const SidebarFooterContent = () => {
             </p>
           </div>
           <ChevronUp
-            className={`h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden ${
+            className={cn(
+              "h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden",
               isDropdownOpen ? "-rotate-90 scale-0" : "rotate-0 scale-100"
-            }`}
+            )}
           />
           <ChevronDown
-            className={`absolute right-2 h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden ${
+            className={cn(
+              "absolute right-2 h-4 w-4 text-sidebar-foreground/60 transition-all group-data-[collapsible=icon]:hidden",
               isDropdownOpen ? "rotate-0 scale-100" : "rotate-90 scale-0"
-            }`}
+            )}
           />
         </div>
       </DropdownMenuTrigger>

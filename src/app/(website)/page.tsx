@@ -45,15 +45,15 @@ export default function Page() {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link href="/auth/sign-up">
+            <Link href="/auth/sign-in">
               <Button
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
                 size="lg"
               >
-                Start Trading with AI
+                Come join us
               </Button>
             </Link>
-            <Link href="/auth/sign-in">
+            <Link href="/auth/sign-up">
               <Button
                 className="border-primary text-primary hover:bg-accent"
                 size="lg"

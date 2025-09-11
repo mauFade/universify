@@ -12,8 +12,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@clerk/nextjs";
 
 const SidebarFooterContent = () => {
+  const { signOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -79,7 +81,10 @@ const SidebarFooterContent = () => {
           Account
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive">
+        <DropdownMenuItem
+          className="gap-2 text-destructive focus:text-destructive"
+          onClick={() => signOut()}
+        >
           <LogOut className="h-4 w-4" />
           Log out
         </DropdownMenuItem>

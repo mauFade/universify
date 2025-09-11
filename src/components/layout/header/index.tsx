@@ -1,7 +1,5 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ThemeToggle from "../theme-toggle";
-import { UserButton } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 
 const AppHeader = () => {
   return (
@@ -12,13 +10,9 @@ const AppHeader = () => {
           <h1 className="text-lg font-medium text-foreground">Dashboard</h1>
         </div>
         <div className="flex items-center gap-2">
-          {/* <p className="text-sm text-muted-foreground">Good morning, mauFade</p> */}
-          <UserButton
-            showName
-            appearance={{
-              theme: dark,
-            }}
-          />
+          <p className="text-sm text-muted-foreground">
+            How are you doing, mauFade?
+          </p>
 
           <ThemeToggle />
         </div>

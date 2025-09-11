@@ -1,13 +1,12 @@
 "use client";
 
+import { useTheme } from "@/providers/theme-provider";
+import Navigation from "./navigation";
 import { Lock } from "lucide-react";
+import { SignUp } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
-import Navigation from "./navigation";
-import { SignIn } from "@clerk/nextjs";
-import { useTheme } from "@/providers/theme-provider";
-
-const SignInView = () => {
+const SignUpView = () => {
   const { theme } = useTheme();
 
   return (
@@ -27,7 +26,7 @@ const SignInView = () => {
             </p>
           </div>
 
-          <SignIn
+          <SignUp
             appearance={{
               theme: theme === "dark" ? dark : undefined,
             }}
@@ -39,4 +38,4 @@ const SignInView = () => {
   );
 };
 
-export default SignInView;
+export default SignUpView;

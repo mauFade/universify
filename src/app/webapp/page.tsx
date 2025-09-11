@@ -1,6 +1,8 @@
-import React from "react";
+import { currentUser } from "@clerk/nextjs/server";
 
-const Home = () => {
+const Home = async () => {
+  const clerkUser = await currentUser();
+  console.log(clerkUser);
   return <div>Home</div>;
 };
 

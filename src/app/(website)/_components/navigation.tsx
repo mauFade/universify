@@ -17,7 +17,25 @@ const Navigation = () => {
             </div>
           </a>
 
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="#features"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Features
+            </a>
+            <a
+              href="#testimonials"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Reviews
+            </a>
+            <a
+              href="#pricing"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Pricing
+            </a>
             <ThemeToggle />
             <div className="hidden items-center space-x-4 md:flex">
               <Link href="/auth/sign-in">

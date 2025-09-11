@@ -2,6 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowRight, TrendingUp, Zap, Shield } from "lucide-react";
+import CryptoStats from "./_components/crypto-stats";
+import FeatureShowcase from "./_components/feature-showcase";
+import { Badge } from "@/components/ui/badge";
+import Testimonials from "./_components/testimonials";
+import PricingSection from "./_components/pricing-section";
+import Footer from "./_components/footer";
 
 export const metadata: Metadata = {
   title: "Universify | AI-Powered Cryptocurrency Platform",
@@ -63,107 +70,133 @@ export default function Page() {
               </Button>
             </Link>
           </div>
+
+          <div className="mt-8 flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+            <div className="flex items-center space-x-1">
+              <Shield className="h-4 w-4 text-primary" />
+              <span>Bank-grade security</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Zap className="h-4 w-4 text-primary" />
+              <span>Lightning fast</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <TrendingUp className="h-4 w-4 text-primary" />
+              <span>94.7% AI accuracy</span>
+            </div>
+          </div>
+
+          <div className="mt-20">
+            <CryptoStats />
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <section id="features" className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-12 text-center">
+          <div className="mb-6 text-center">
             <h2 className="mb-4 font-bold text-3xl text-foreground">
               What Makes UNIVERSIFY Different
             </h2>
+
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              Built to enhance your trading, not replace it. Our platform
-              combines human intuition with LLM-powered intelligence.
+              Our platform combines cutting-edge AI technology with professional
+              trading tools to give you the competitive edge in cryptocurrency
+              markets.
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            <Card className="border-border transition-shadow hover:shadow-lg bg-card hover:shadow-primary/10">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <span className="text-2xl">🤖</span>
-                </div>
-                <h3 className="mb-2 font-semibold text-card-foreground text-xl">
-                  LLM-Powered Analysis
-                </h3>
-                <p className="text-muted-foreground">
-                  Advanced language models that analyze market sentiment,
-                  predict price movements, and suggest optimal trading
-                  strategies.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border transition-shadow hover:shadow-lg bg-card hover:shadow-primary/10">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <span className="text-2xl">📊</span>
-                </div>
-                <h3 className="mb-2 font-semibold text-card-foreground text-xl">
-                  Real-Time Analytics
-                </h3>
-                <p className="text-muted-foreground">
-                  Live insights into market trends, portfolio performance, and
-                  trading metrics that drive profitable decisions.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border transition-shadow hover:shadow-lg bg-card hover:shadow-primary/10">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <span className="text-2xl">🎯</span>
-                </div>
-                <h3 className="mb-2 font-semibold text-card-foreground text-xl">
-                  Automated Trading
-                </h3>
-                <p className="text-muted-foreground">
-                  AI-powered trading bots that execute strategies based on
-                  market conditions and your risk preferences.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <FeatureShowcase />
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      {/* Testimonials Section */}
+      <section
+        id="testimonials"
+        className="px-4 py-20 sm:px-6 lg:px-8 bg-background/30"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+              Trusted by Traders
+            </Badge>
+            <h2 className="mb-4 font-bold text-3xl text-foreground sm:text-4xl text-balance">
+              What Our Users Say
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground text-lg">
+              Join thousands of successful traders who trust Universify for
+              their crypto investments.
+            </p>
+          </div>
+
+          <Testimonials />
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+              Simple Pricing
+            </Badge>
+            <h2 className="mb-4 font-bold text-3xl text-foreground sm:text-4xl text-balance">
+              Choose Your Trading Plan
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground text-lg">
+              Start free and upgrade as you grow. All plans include our core AI
+              features.
+            </p>
+          </div>
+
+          <PricingSection />
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
-          <Card className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground">
-            <CardContent className="p-8 text-center">
-              <h2 className="mb-4 font-bold text-2xl">
+          <Card className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-accent text-primary-foreground border-0">
+            <div className="absolute inset-0 bg-[url('/abstract-crypto-pattern.png')] opacity-10"></div>
+            <CardContent className="relative p-12 text-center">
+              <h2 className="mb-4 font-bold text-3xl sm:text-4xl text-balance">
                 Ready to Transform Your Trading?
               </h2>
-              <p className="mb-6 text-primary-foreground/80">
-                Sign up now to start leveraging AI for smarter cryptocurrency
-                trading and portfolio management.
+              <p className="mb-8 text-primary-foreground/90 text-lg leading-relaxed">
+                Join 150K+ traders already using AI to maximize their crypto
+                returns. Start your journey to smarter trading today.
               </p>
               <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
                 <Link href="/auth/sign-up">
                   <Button
-                    className="bg-background text-foreground hover:bg-muted"
                     size="lg"
-                    variant="secondary"
+                    className="bg-background text-foreground hover:bg-muted shadow-lg"
                   >
-                    Join UNIVERSIFY Today
+                    Start Free Trial
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
+                >
+                  Schedule Demo
+                </Button>
               </div>
-              <div className="mt-6 text-primary-foreground/80 text-sm">
+              <div className="mt-8 text-primary-foreground/80 text-sm">
                 <p>
-                  Questions? Reach us at{" "}
+                  Questions? Contact us at{" "}
                   <a
-                    className="underline hover:text-primary-foreground"
+                    className="underline hover:text-primary-foreground transition-colors"
                     href="mailto:hello@universify.com"
                   >
                     hello@universify.com
                   </a>{" "}
                   or call{" "}
                   <a
-                    className="underline hover:text-primary-foreground"
+                    className="underline hover:text-primary-foreground transition-colors"
                     href="tel:1-800-UNIVERSIFY"
                   >
                     1-800-UNIVERSIFY
@@ -174,6 +207,8 @@ export default function Page() {
           </Card>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

@@ -5,6 +5,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import Client from "./client";
 import { findByEmailOrInsert } from "@/server/db/repositories/user";
 import UserProvider from "@/stores/users/provider";
+import { db } from "@/server/db";
+import { seedCryptoPricesBTC } from "@/server/db/repositories/crypto-prices";
 
 export default async function AppLayout({
   children,
@@ -17,7 +19,7 @@ export default async function AppLayout({
     return <Client />;
   }
 
-  const user = await findByEmailOrInsert({
+  const user = await findByEmailOrInsert(db, {
     firstName: clerkUser.firstName || clerkUser.fullName,
     lastName: clerkUser.lastName || "",
     email: clerkUser.emailAddresses[0].emailAddress,
@@ -25,6 +27,9 @@ export default async function AppLayout({
     avatar: clerkUser.imageUrl,
     hasAvatar: clerkUser.hasImage,
   });
+
+  // seed database with crypto prices for basic coins
+  seedCryptoPricesBTC(db);
 
   return (
     <UserProvider user={user}>

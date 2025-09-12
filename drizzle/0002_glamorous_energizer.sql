@@ -1,0 +1,1 @@
+CREATE INDEX "symbol_idx" ON "unvsfy_crypto_prices" USING btree ("symbol");

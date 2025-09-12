@@ -15,6 +15,13 @@
       "when": 1757705742032,
       "tag": "0001_empty_molly_hayes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757708966846,
+      "tag": "0002_glamorous_energizer",
+      "breakpoints": true
     }
   ]
 }

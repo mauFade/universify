@@ -6,7 +6,13 @@ import Client from "./client";
 import { findByEmailOrInsert } from "@/server/db/repositories/user";
 import UserProvider from "@/stores/users/provider";
 import { db } from "@/server/db";
-import { seedCryptoPricesBTC } from "@/server/db/repositories/crypto-prices";
+import {
+  seedCryptoPricesBNB,
+  seedCryptoPricesETH,
+  seedCryptoPricesSOL,
+  seedCryptoPricesBTC,
+  seedCryptoPricesXRP,
+} from "@/server/db/repositories/crypto-prices";
 
 export default async function AppLayout({
   children,
@@ -30,6 +36,10 @@ export default async function AppLayout({
 
   // seed database with crypto prices for basic coins
   seedCryptoPricesBTC(db);
+  seedCryptoPricesETH(db);
+  seedCryptoPricesSOL(db);
+  seedCryptoPricesBNB(db);
+  seedCryptoPricesXRP(db);
 
   return (
     <UserProvider user={user}>

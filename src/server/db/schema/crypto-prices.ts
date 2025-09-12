@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { unique } from "drizzle-orm/pg-core";
+import { unique, index } from "drizzle-orm/pg-core";
 import { createTable, generateId } from "../utils";
 
 export const cryptoPrices = createTable(
@@ -20,5 +20,6 @@ export const cryptoPrices = createTable(
   }),
   (table) => [
     unique("symbol_timestamp_unique").on(table.symbol, table.timestamp),
+    index("symbol_idx").on(table.symbol),
   ],
 );

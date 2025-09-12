@@ -1,6 +1,6 @@
-export async function fetchBitcoinHistory(days: number = 365) {
+export async function fetchBitcoinHistory(coin: string, days: number = 365) {
   const url = new URL(
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart",
+    `https://api.coingecko.com/api/v3/coins/${coin}/market_chart`,
   );
   url.searchParams.set("vs_currency", "usd");
   url.searchParams.set("days", days.toString());

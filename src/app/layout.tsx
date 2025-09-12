@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { TRPCReactProvider } from "@/trpc/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,10 +35,12 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background to-muted/60`}
         >
           <ThemeProvider defaultTheme="system" storageKey="universify-theme">
-            <TooltipProvider>
-              {children}
-              <Toaster />
-            </TooltipProvider>
+            <TRPCReactProvider>
+              <TooltipProvider>
+                {children}
+                <Toaster />
+              </TooltipProvider>
+            </TRPCReactProvider>
           </ThemeProvider>
         </body>
       </html>

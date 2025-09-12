@@ -10,9 +10,13 @@ import { eq } from "drizzle-orm";
 export const userRouter = createTRPCRouter({
   // Get current user profile
   getProfile: authenticatedProcedure.query(async ({ ctx }) => {
-    const { user, db } = ctx;
+    const { id } = ctx.user;
 
-    return user;
+    const u = await ctx.db.query.users.findFirst({
+      where: eq(users.id, id),
+    });
+
+    return u;
   }),
 
   // Get user by ID (public for now, but could be protected)

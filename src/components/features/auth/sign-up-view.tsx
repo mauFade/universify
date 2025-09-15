@@ -30,7 +30,7 @@ const SignUpView = () => {
             appearance={{
               theme: theme === "dark" ? dark : undefined,
             }}
-            forceRedirectUrl="/webapp"
+            forceRedirectUrl="/webapp/dashboard"
           />
         </div>
       </div>

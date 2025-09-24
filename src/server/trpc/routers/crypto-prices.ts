@@ -1,8 +1,12 @@
+import { SelectCryptoPricesParams } from "@/server/validators/crypto-prices";
 import { createTRPCRouter, authenticatedProcedure } from "../setup/context";
+import { selectCryptoPrices } from "@/server/db/repositories/crypto-prices";
 
 export const cryptoPricesRouter = createTRPCRouter({
-  getPrices: authenticatedProcedure.query(async ({ ctx }) => {
-    const prices = [1, 2, 3];
-    return prices;
-  }),
+  selectCryptoPrices: authenticatedProcedure
+    .input(SelectCryptoPricesParams)
+    .query(async ({ ctx, input }) => {
+      const prices = await selectCryptoPrices(ctx.db, input);
+      return prices;
+    }),
 });

@@ -1,10 +1,12 @@
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import type * as schema from "../schema";
-import { fetchBitcoinHistory } from "@/services/coingecko";
+import { fetchBitcoinHistory } from "@/server/services/coingecko";
 import { cryptoPrices } from "../schema";
 import { getLastSyncDate, sync } from "./sync-logs";
 
-import { differenceInDays } from "date-fns";
+import { differenceInDays, isToday } from "date-fns";
+import { and, eq, gte, lte } from "drizzle-orm";
+import type { CryptoSymbols } from "@/server/validators/crypto-prices";
 
 export const seedCryptoPricesBTC = async (
   db: NodePgDatabase<typeof schema>,
@@ -23,6 +25,10 @@ export const seedCryptoPricesBTC = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   } else {
+    // If the last sync is today, do not sync again
+    if (lastSync && isToday(lastSync.syncDate)) {
+      return;
+    }
     const { syncDate } = lastSync;
 
     const diff = differenceInDays(new Date(), syncDate);
@@ -56,6 +62,10 @@ export const seedCryptoPricesETH = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   } else {
+    // If the last sync is today, do not sync again
+    if (lastSync && isToday(lastSync.syncDate)) {
+      return;
+    }
     const { syncDate } = lastSync;
 
     const diff = differenceInDays(new Date(), syncDate);
@@ -89,6 +99,10 @@ export const seedCryptoPricesSOL = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   } else {
+    // If the last sync is today, do not sync again
+    if (lastSync && isToday(lastSync.syncDate)) {
+      return;
+    }
     const { syncDate } = lastSync;
 
     const diff = differenceInDays(new Date(), syncDate);
@@ -122,6 +136,10 @@ export const seedCryptoPricesBNB = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   } else {
+    // If the last sync is today, do not sync again
+    if (lastSync && isToday(lastSync.syncDate)) {
+      return;
+    }
     const { syncDate } = lastSync;
 
     const diff = differenceInDays(new Date(), syncDate);
@@ -155,6 +173,10 @@ export const seedCryptoPricesXRP = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   } else {
+    // If the last sync is today, do not sync again
+    if (lastSync && isToday(lastSync.syncDate)) {
+      return;
+    }
     const { syncDate } = lastSync;
 
     const diff = differenceInDays(new Date(), syncDate);
@@ -169,4 +191,34 @@ export const seedCryptoPricesXRP = async (
 
     await Promise.all([db.insert(cryptoPrices).values(rows), sync(db)]);
   }
+};
+
+/**
+ * Select crypto prices based on the symbol with optional dates range
+ * @param db - The database connection
+ * @param symbol - The symbol of the crypto price to select
+ * @param startDate - The start date of the date range
+ * @param endDate - The end date of the date range
+ * @returns The crypto prices
+ */
+export const selectCryptoPrices = async (
+  db: NodePgDatabase<typeof schema>,
+  params: { symbol: CryptoSymbols; startDate?: Date; endDate?: Date },
+) => {
+  console.log(params);
+  const { symbol, startDate, endDate } = params;
+  const conditions = [eq(cryptoPrices.symbol, symbol)];
+
+  if (startDate) {
+    conditions.push(gte(cryptoPrices.timestamp, startDate));
+  }
+
+  if (endDate) {
+    conditions.push(lte(cryptoPrices.timestamp, endDate));
+  }
+
+  const prices = await db.query.cryptoPrices.findMany({
+    where: and(...conditions),
+  });
+  return prices;
 };

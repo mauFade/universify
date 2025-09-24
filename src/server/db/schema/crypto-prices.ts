@@ -14,7 +14,7 @@ export const cryptoPrices = createTable(
 
     priceUsd: d.numeric("price_usd", { precision: 18, scale: 8 }).notNull(),
 
-    createdAt: d.timestamp("created_at").default(sql`NOW()`),
+    createdAt: d.timestamp("created_at").notNull().default(sql`NOW()`),
 
     timestamp: d.timestamp("timestamp", { withTimezone: false }).notNull(),
   }),

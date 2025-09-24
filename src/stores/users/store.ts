@@ -8,6 +8,7 @@ export type PublicUser = {
   lastName: string;
   email: string;
   avatar: string | null;
+  isAdmin: boolean;
 };
 
 type userState = {

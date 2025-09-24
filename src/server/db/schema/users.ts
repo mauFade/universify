@@ -17,6 +17,8 @@ export const users = createTable("users", (d) => ({
 
   avatar: d.varchar("avatar", { length: 255 }),
 
+  isAdmin: d.boolean("is_admin").notNull().default(false),
+
   createdAt: d.timestamp("created_at").default(sql`NOW()`),
 
   updatedAt: d.timestamp("updated_at").$onUpdateFn(() => sql`NOW()`),

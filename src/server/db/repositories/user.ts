@@ -60,6 +60,7 @@ export const findByEmailOrInsert = async (
       lastName: user.lastName,
       email: user.email,
       avatar: user.avatar,
+      isAdmin: user.isAdmin,
     };
   }
   const [u] = await db
@@ -76,5 +77,6 @@ export const findByEmailOrInsert = async (
     lastName: u.lastName,
     email: u.email,
     avatar: u.avatar,
+    isAdmin: u.isAdmin,
   };
 };

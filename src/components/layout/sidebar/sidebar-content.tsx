@@ -6,6 +6,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
+import { userStore } from "@/stores/users/store";
 import {
   Home,
   TrendingUp,
@@ -59,6 +60,8 @@ const tradingItems = [
 ];
 
 const SidebarContent = () => {
+  const { user } = userStore();
+
   return (
     <>
       <SidebarGroup>
@@ -96,6 +99,24 @@ const SidebarContent = () => {
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
+
+      {user?.isAdmin && (
+        <SidebarGroup>
+          <SidebarGroupLabel>Administration</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <a href="/webapp/admin">
+                    <Settings />
+                    <span>Admin area</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      )}
 
       <SidebarGroup>
         <SidebarGroupLabel>Settings</SidebarGroupLabel>

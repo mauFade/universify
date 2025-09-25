@@ -216,9 +216,30 @@ export const selectCryptoPrices = async (
     whereClauses.push(lte(cryptoPrices.timestamp, new Date(latestDate)));
   }
 
-  const prices = await db.query.cryptoPrices.findMany({
+  const allPrices = await db.query.cryptoPrices.findMany({
     where: and(...whereClauses),
+    orderBy: (cryptoPrices, { asc }) => [asc(cryptoPrices.timestamp)],
   });
 
-  return prices;
+  // Group by day and limit to 4 entries per day
+  const groupedByDay = allPrices.reduce(
+    (acc, crypto) => {
+      const dayKey = crypto.timestamp.toDateString();
+
+      if (!acc[dayKey]) {
+        acc[dayKey] = [];
+      }
+
+      // Limit to 4 entries per day
+      if (acc[dayKey].length < 4) {
+        acc[dayKey].push(crypto);
+      }
+
+      return acc;
+    },
+    {} as Record<string, typeof allPrices>,
+  );
+
+  // Flatten and return
+  return Object.values(groupedByDay).flat();
 };

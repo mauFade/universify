@@ -1,9 +1,9 @@
-import { AreaGraph } from "@/components/features/dashboard/graph";
+import CryptoAreaGraph from "@/components/features/dashboard/graphs/_components/graph";
 
 const GraphsView = () => {
   return (
     <div className="space-y-4">
-      <AreaGraph />
+      <CryptoAreaGraph />
     </div>
   );
 };

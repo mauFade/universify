@@ -203,17 +203,17 @@ export const seedCryptoPricesXRP = async (
  */
 export const selectCryptoPrices = async (
   db: NodePgDatabase<typeof schema>,
-  params: { symbol: CryptoSymbols; earliestDate?: string; latestDate?: string },
+  params: { symbol: CryptoSymbols; earliestDate?: Date; latestDate?: Date },
 ) => {
   const { symbol, earliestDate, latestDate } = params;
 
   const whereClauses = [eq(cryptoPrices.symbol, symbol)];
 
   if (earliestDate) {
-    whereClauses.push(gte(cryptoPrices.timestamp, new Date(earliestDate)));
+    whereClauses.push(gte(cryptoPrices.timestamp, earliestDate));
   }
   if (latestDate) {
-    whereClauses.push(lte(cryptoPrices.timestamp, new Date(latestDate)));
+    whereClauses.push(lte(cryptoPrices.timestamp, latestDate));
   }
 
   const allPrices = await db.query.cryptoPrices.findMany({

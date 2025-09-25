@@ -197,28 +197,28 @@ export const seedCryptoPricesXRP = async (
  * Select crypto prices based on the symbol with optional dates range
  * @param db - The database connection
  * @param symbol - The symbol of the crypto price to select
- * @param startDate - The start date of the date range
- * @param endDate - The end date of the date range
+ * @param earliestDate - The earliest date of the date range
+ * @param latestDate - The latest date of the date range
  * @returns The crypto prices
  */
 export const selectCryptoPrices = async (
   db: NodePgDatabase<typeof schema>,
-  params: { symbol: CryptoSymbols; startDate?: Date; endDate?: Date },
+  params: { symbol: CryptoSymbols; earliestDate?: string; latestDate?: string },
 ) => {
-  console.log(params);
-  const { symbol, startDate, endDate } = params;
-  const conditions = [eq(cryptoPrices.symbol, symbol)];
+  const { symbol, earliestDate, latestDate } = params;
 
-  if (startDate) {
-    conditions.push(gte(cryptoPrices.timestamp, startDate));
+  const whereClauses = [eq(cryptoPrices.symbol, symbol)];
+
+  if (earliestDate) {
+    whereClauses.push(gte(cryptoPrices.timestamp, new Date(earliestDate)));
   }
-
-  if (endDate) {
-    conditions.push(lte(cryptoPrices.timestamp, endDate));
+  if (latestDate) {
+    whereClauses.push(lte(cryptoPrices.timestamp, new Date(latestDate)));
   }
 
   const prices = await db.query.cryptoPrices.findMany({
-    where: and(...conditions),
+    where: and(...whereClauses),
   });
+
   return prices;
 };

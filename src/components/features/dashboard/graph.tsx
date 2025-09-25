@@ -37,7 +37,7 @@ const chartConfig = {
 
 export function AreaGraph() {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Donors Joined</CardTitle>
         <CardDescription>

@@ -18,6 +18,7 @@ import {
 import { TrendingUp } from "lucide-react";
 import CustomGraphTooltip from "./_components/custom-graph-tooltip";
 import useGraph from "./hook";
+import ChartAreaInteractive from "../interactive-chart";
 
 const chartConfig = {
   priceUsd: {
@@ -105,6 +106,8 @@ const GraphsView = () => {
           </div>
         </CardFooter>
       </Card>
+
+      <ChartAreaInteractive />
     </div>
   );
 };

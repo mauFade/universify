@@ -1,4 +1,4 @@
-import SignInView from "@/components/features/auth/sign-in-view";
+import SignInView from "@/features/auth/sign-in-view";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -30,20 +30,20 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background to-muted/60`}
-        >
-          <ThemeProvider defaultTheme="system" storageKey="universify-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="universify-theme">
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background to-muted/60`}
+          >
             <TRPCReactProvider>
               <TooltipProvider>
                 {children}
                 <Toaster />
               </TooltipProvider>
             </TRPCReactProvider>
-          </ThemeProvider>
-        </body>
-      </html>
+          </body>
+        </html>
+      </ThemeProvider>
     </ClerkProvider>
   );
 }

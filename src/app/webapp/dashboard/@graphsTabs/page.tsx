@@ -1,5 +1,5 @@
-import GraphsView from "@/components/features/dashboard/graphs";
-import GraphsWrapper from "@/components/features/dashboard/graphs/_components/wrapper";
+import GraphsView from "@/features/dashboard/graphs";
+import GraphsWrapper from "@/features/dashboard/wrapper";
 import { api, HydrateClient } from "@/trpc/server";
 import { subYears } from "date-fns";
 

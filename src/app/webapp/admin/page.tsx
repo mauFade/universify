@@ -458,7 +458,7 @@ const AdminPage = () => {
             <FolderSync className="size-4" />
             Sync crypto data
           </Button>
-          <Button size="sm">
+          <Button size="sm" variant="secondary">
             <Settings className="size-4" />
             Settings
           </Button>

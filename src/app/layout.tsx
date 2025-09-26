@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -7,13 +7,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -32,9 +27,7 @@ export default function RootLayout({
     <ClerkProvider>
       <ThemeProvider defaultTheme="dark" storageKey="universify-theme">
         <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background to-muted/60`}
-          >
+          <body className={`${montserrat.variable} antialiased bg-background`}>
             <TRPCReactProvider>
               <TooltipProvider>
                 {children}

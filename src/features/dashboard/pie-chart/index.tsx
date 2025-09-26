@@ -57,7 +57,7 @@ const chartConfig = {
 const ChartPieLegend = () => {
   return (
     <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
+      <CardHeader className="items-center pb-0 border-b">
         <CardTitle>Pie Chart - Legend</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>

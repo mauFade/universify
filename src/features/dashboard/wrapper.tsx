@@ -17,7 +17,7 @@ const GraphsWrapper = ({ children, queryKey }: GraphsWrapperProps) => {
     try {
       switch (queryKey) {
         case "cryptoPrices":
-          await utils.cryptoPrices.selectCryptoPrices.refetch();
+          await utils.cryptoPrices.selectGeneralCryptoPrices.refetch();
           break;
 
         default:

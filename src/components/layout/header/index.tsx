@@ -17,7 +17,7 @@ const AppHeader = () => {
         <div className="flex items-center gap-6">
           {user && (
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-emerald-500">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-teal-500">
                 <TrendingUp className="w-3 h-3 text-white" />
               </div>
 

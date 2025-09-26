@@ -1,4 +1,4 @@
-import GraphsView from "@/features/dashboard/graphs";
+import ChartAreaInteractive from "@/features/dashboard/currencies-chart";
 import GraphsWrapper from "@/features/dashboard/wrapper";
 import { api, HydrateClient } from "@/trpc/server";
 import { subYears } from "date-fns";
@@ -16,7 +16,7 @@ const GraphTabs = () => {
   return (
     <HydrateClient>
       <GraphsWrapper queryKey="cryptoPrices">
-        <GraphsView />
+        <ChartAreaInteractive />
       </GraphsWrapper>
     </HydrateClient>
   );

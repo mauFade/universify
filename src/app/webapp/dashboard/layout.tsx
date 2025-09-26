@@ -1,3 +1,4 @@
+import ChartPieLegend from "@/features/dashboard/pie-chart";
 import type { ReactNode } from "react";
 
 interface DashboardLayoutProps {
@@ -8,6 +9,9 @@ const DashboardLayout = ({ graphsTabs }: DashboardLayoutProps) => {
   return (
     <div className="grid grid-cols-3 gap-4">
       <div className="lg:col-span-2">{graphsTabs}</div>
+      <div className="lg:col-span-1">
+        <ChartPieLegend />
+      </div>
     </div>
   );
 };

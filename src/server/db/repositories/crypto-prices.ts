@@ -4,7 +4,7 @@ import { fetchBitcoinHistory } from "@/server/services/coingecko";
 import { cryptoPrices } from "../schema";
 import { getLastSyncDate, sync } from "./sync-logs";
 
-import { differenceInDays, isToday } from "date-fns";
+import { differenceInDays, isToday, subDays } from "date-fns";
 import { and, eq, gte, lte } from "drizzle-orm";
 import type { CryptoSymbols } from "@/server/validators/crypto-prices";
 
@@ -242,4 +242,68 @@ export const selectCryptoPrices = async (
 
   // Flatten and return
   return Object.values(groupedByDay).flat();
+};
+
+export const selectGeneralCryptoPrices = async (
+  db: NodePgDatabase<typeof schema>,
+) => {
+  const prices = await db.query.cryptoPrices.findMany({
+    where: gte(cryptoPrices.timestamp, subDays(new Date(), 90)),
+    orderBy: (cryptoPrices, { asc }) => [asc(cryptoPrices.timestamp)],
+  });
+
+  const groupedBySymbol = prices.reduce(
+    (acc, crypto) => {
+      if (!acc[crypto.symbol]) {
+        acc[crypto.symbol] = [];
+      }
+      acc[crypto.symbol].push(crypto);
+      return acc;
+    },
+    {} as Record<string, typeof prices>,
+  );
+
+  const cryptoData: {
+    [date: string]: { [crypto: string]: { price: number; timestamp: string } };
+  } = {};
+
+  Object.entries(groupedBySymbol).forEach(([crypto, data]) => {
+    if (Array.isArray(data)) {
+      data.forEach((item) => {
+        const timestamp =
+          item.timestamp instanceof Date
+            ? item.timestamp
+            : new Date(item.timestamp);
+        const date = timestamp.toISOString().split("T")[0]; // YYYY-MM-DD
+
+        if (!cryptoData[date]) {
+          cryptoData[date] = {};
+        }
+
+        const price = parseFloat(item.priceUsd);
+        const timestampString = timestamp.toISOString();
+
+        if (
+          !cryptoData[date][crypto] ||
+          new Date(timestampString) >
+            new Date(cryptoData[date][crypto].timestamp)
+        ) {
+          cryptoData[date][crypto] = { price, timestamp: timestampString };
+        }
+      });
+    }
+  });
+
+  const processedData = Object.entries(cryptoData)
+    .map(([date, cryptoPrices]) => ({
+      date,
+      btc: cryptoPrices.btc?.price || 0,
+      eth: cryptoPrices.eth?.price || 0,
+      sol: cryptoPrices.sol?.price || 0,
+      xrp: cryptoPrices.xrp?.price || 0,
+      bnb: cryptoPrices.bnb?.price || 0,
+    }))
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  return processedData;
 };

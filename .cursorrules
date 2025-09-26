@@ -15,6 +15,14 @@ h-6 w-6 -> size-6
 h-7 w-7 -> size-7
 h-8 w-8 -> size-8
 
+- Use types instead of interfaces
+
+interface MyProps {} -> type MyProps = {}
+
+- Use emerald pallete instead of green 
+
+text-green-500 -> text-emerald-500
+
 - Use sonner for toasts
 
 - Use pnpm for package manager

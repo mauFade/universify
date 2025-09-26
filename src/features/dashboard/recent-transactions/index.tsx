@@ -34,7 +34,7 @@ const RecentTransactions = ({ transactions }: RecentTransactionsProps) => {
   const getTransactionIcon = (type: string) => {
     switch (type) {
       case "buy":
-        return <ArrowDownLeft className="size-4 text-green-500" />;
+        return <ArrowDownLeft className="size-4 text-emerald-500" />;
       case "sell":
         return <ArrowUpRight className="size-4 text-red-500" />;
       case "transfer":

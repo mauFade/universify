@@ -481,7 +481,7 @@ const AdminPage = () => {
                 <span
                   className={`inline-flex items-center gap-1 ${
                     stat.changeType === "positive"
-                      ? "text-green-600"
+                      ? "text-emerald-600"
                       : "text-red-600"
                   }`}
                 >
@@ -714,7 +714,7 @@ const AdminPage = () => {
                   <TableCell className="text-center py-3">
                     <div className="flex items-center justify-center gap-1.5">
                       {subscription.status === "active" && (
-                        <CheckCircle className="size-3 text-green-500" />
+                        <CheckCircle className="size-3 text-emerald-500" />
                       )}
                       {subscription.status === "cancelled" && (
                         <XCircle className="size-3 text-red-500" />
@@ -822,7 +822,10 @@ const AdminPage = () => {
                 <div className="font-medium">Database</div>
                 <div className="text-sm text-muted-foreground">PostgreSQL</div>
               </div>
-              <Badge variant="default" className="bg-green-100 text-green-800">
+              <Badge
+                variant="default"
+                className="bg-emerald-100 text-emerald-800"
+              >
                 Healthy
               </Badge>
             </div>
@@ -833,7 +836,10 @@ const AdminPage = () => {
                   Response time: 45ms
                 </div>
               </div>
-              <Badge variant="default" className="bg-green-100 text-green-800">
+              <Badge
+                variant="default"
+                className="bg-emerald-100 text-emerald-800"
+              >
                 Online
               </Badge>
             </div>
@@ -842,7 +848,10 @@ const AdminPage = () => {
                 <div className="font-medium">Authentication</div>
                 <div className="text-sm text-muted-foreground">Clerk</div>
               </div>
-              <Badge variant="default" className="bg-green-100 text-green-800">
+              <Badge
+                variant="default"
+                className="bg-emerald-100 text-emerald-800"
+              >
                 Active
               </Badge>
             </div>

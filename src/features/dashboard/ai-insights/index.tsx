@@ -5,24 +5,24 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Brain, TrendingUp, AlertTriangle, Lightbulb } from "lucide-react";
 
-interface AIInsight {
+type AIInsight = {
   id: string;
   type: "opportunity" | "warning" | "tip";
   title: string;
   description: string;
   confidence: number;
   timestamp: string;
-}
+};
 
-interface AIInsightsProps {
+type AIInsightsProps = {
   insights: AIInsight[];
-}
+};
 
 const AIInsights = ({ insights }: AIInsightsProps) => {
   const getInsightIcon = (type: string) => {
     switch (type) {
       case "opportunity":
-        return <TrendingUp className="size-4 text-green-500" />;
+        return <TrendingUp className="size-4 text-emerald-500" />;
       case "warning":
         return <AlertTriangle className="size-4 text-yellow-500" />;
       case "tip":
@@ -54,7 +54,7 @@ const AIInsights = ({ insights }: AIInsightsProps) => {
             AI Insights
           </CardTitle>
           <Badge variant="outline" className="flex items-center gap-1">
-            <div className="size-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
             Active
           </Badge>
         </div>

@@ -59,7 +59,7 @@ const MarketOverview = ({ assets }: MarketOverviewProps) => {
 
                   <div className="text-right">
                     <div
-                      className={`font-medium flex items-center gap-1 ${isPositive ? "text-green-500" : "text-red-500"}`}
+                      className={`font-medium flex items-center gap-1 ${isPositive ? "text-emerald-500" : "text-red-500"}`}
                     >
                       <ChangeIcon className="size-3" />
                       {isPositive ? "+" : ""}

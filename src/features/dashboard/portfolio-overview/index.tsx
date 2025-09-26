@@ -53,7 +53,7 @@ const PortfolioOverview = ({ assets }: PortfolioOverviewProps) => {
                     })}
                   </div>
                   <div
-                    className={`text-sm flex items-center gap-1 ${isPositive ? "text-green-500" : "text-red-500"}`}
+                    className={`text-sm flex items-center gap-1 ${isPositive ? "text-emerald-500" : "text-red-500"}`}
                   >
                     <ChangeIcon className="size-3" />
                     {isPositive ? "+" : ""}

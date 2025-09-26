@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/popover";
 import { cn, formatCurrency } from "@/lib/utils";
 import { format } from "date-fns";
+import MoneyInput from "@/components/common/money-input";
 
 const formSchema = z.object({
   cryptocurrency: z.string().min(1, "Please select a cryptocurrency"),
@@ -50,13 +51,7 @@ const formSchema = z.object({
       (val) => !Number.isNaN(Number(val)) && Number(val) > 0,
       "Amount must be a positive number",
     ),
-  pricePerUnit: z
-    .string()
-    .min(1, "Price per unit is required")
-    .refine(
-      (val) => !Number.isNaN(Number(val)) && Number(val) > 0,
-      "Price must be a positive number",
-    ),
+  pricePerUnit: z.number().min(0.01, "Price must be greater than 0"),
   totalValue: z
     .string()
     .min(1, "Total value is required")
@@ -103,7 +98,7 @@ const RegisterBuyDialog = () => {
     defaultValues: {
       cryptocurrency: "",
       amount: "",
-      pricePerUnit: "",
+      pricePerUnit: 0,
       totalValue: "",
       date: new Date(),
       exchange: "",
@@ -120,20 +115,38 @@ const RegisterBuyDialog = () => {
   const handleAmountChange = (value: string) => {
     form.setValue("amount", value);
     const amount = Number(value);
-    const pricePerUnit = Number(form.getValues("pricePerUnit"));
-    if (amount && pricePerUnit) {
+    const pricePerUnit = form.getValues("pricePerUnit");
+    if (
+      !Number.isNaN(amount) &&
+      !Number.isNaN(pricePerUnit) &&
+      amount > 0 &&
+      pricePerUnit > 0
+    ) {
       form.setValue("totalValue", (amount * pricePerUnit).toFixed(2));
+    } else {
+      form.setValue("totalValue", "0.00");
     }
   };
 
-  const handlePriceChange = (value: string) => {
-    form.setValue("pricePerUnit", value);
-    const amount = Number(form.getValues("amount"));
-    const pricePerUnit = Number(value);
-    if (amount && pricePerUnit) {
-      form.setValue("totalValue", (amount * pricePerUnit).toFixed(2));
+  // Watch for pricePerUnit changes to recalculate total
+  const pricePerUnit = form.watch("pricePerUnit");
+  const amount = form.watch("amount");
+
+  // Recalculate total when either amount or pricePerUnit changes
+  React.useEffect(() => {
+    const amountNum = Number(amount);
+    const priceNum = Number(pricePerUnit);
+    if (
+      !Number.isNaN(amountNum) &&
+      !Number.isNaN(priceNum) &&
+      amountNum > 0 &&
+      priceNum > 0
+    ) {
+      form.setValue("totalValue", (amountNum * priceNum).toFixed(2));
+    } else {
+      form.setValue("totalValue", "0.00");
     }
-  };
+  }, [amount, pricePerUnit, form]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -237,7 +250,7 @@ const RegisterBuyDialog = () => {
                       <Input
                         type="number"
                         step="any"
-                        placeholder="0.00000000"
+                        placeholder="0"
                         className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         {...field}
                         onChange={(e) => {
@@ -256,31 +269,14 @@ const RegisterBuyDialog = () => {
               <FormField
                 control={form.control}
                 name="pricePerUnit"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex flex-col gap-1 items-start">
-                      Price per Unit ($)
-                      <span className="text-xs text-muted-foreground">
-                        The price per unit you bought
-                      </span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        step="any"
-                        placeholder="0.00"
-                        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                        {...field}
-                        onChange={(e) => {
-                          // Only allow numbers and decimal point
-                          const value = e.target.value.replace(/[^0-9.]/g, "");
-                          field.onChange(value);
-                          handlePriceChange(value);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                render={() => (
+                  <MoneyInput
+                    form={form}
+                    name="pricePerUnit"
+                    label="Price per unit"
+                    subLabel="The price per unit you bought"
+                    placeholder="0.00"
+                  />
                 )}
               />
             </div>
@@ -303,8 +299,9 @@ const RegisterBuyDialog = () => {
                         variant="secondary"
                         className="text-lg font-semibold px-4 py-2"
                       >
-                        {formatCurrency(Number.parseFloat(field.value)) ||
-                          "$0.00"}
+                        {field.value && !Number.isNaN(Number(field.value))
+                          ? formatCurrency(Number(field.value))
+                          : "$0.00"}
                       </Badge>
                     </div>
                   </FormControl>

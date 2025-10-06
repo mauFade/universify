@@ -14,6 +14,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
 import { userStore } from "@/stores/users/store";
+import Link from "next/link";
 
 const SidebarFooterContent = () => {
   const { signOut } = useAuth();
@@ -76,10 +77,12 @@ const SidebarFooterContent = () => {
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-2">
-          <Settings className="h-4 w-4" />
-          Account
-        </DropdownMenuItem>
+        <Link href="/webapp/profile">
+          <DropdownMenuItem className="gap-2">
+            <Settings className="h-4 w-4" />
+            Account
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="gap-2 text-destructive focus:text-destructive"

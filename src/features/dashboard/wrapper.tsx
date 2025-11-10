@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, type ReactNode } from "react";
-import { api } from "@/trpc/react";
+import { useApiUtils } from "@/lib/api-hooks";
 import GraphsErrorBoundary from "./error-boundary";
 import CommonSkeleton from "@/components/layout/skeleton";
 
@@ -11,7 +11,7 @@ type GraphsWrapperProps = {
 };
 
 const GraphsWrapper = ({ children, queryKey }: GraphsWrapperProps) => {
-  const utils = api.useUtils();
+  const utils = useApiUtils();
 
   const handleReset = async () => {
     try {

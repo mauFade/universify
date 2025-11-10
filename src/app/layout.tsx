@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { TRPCReactProvider } from "@/trpc/react";
+import { QueryProvider } from "@/providers/query-provider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -28,12 +28,12 @@ export default function RootLayout({
       <ThemeProvider defaultTheme="dark" storageKey="universify-theme">
         <html lang="en">
           <body className={`${montserrat.variable} antialiased bg-background`}>
-            <TRPCReactProvider>
+            <QueryProvider>
               <TooltipProvider>
                 {children}
                 <Toaster />
               </TooltipProvider>
-            </TRPCReactProvider>
+            </QueryProvider>
           </body>
         </html>
       </ThemeProvider>

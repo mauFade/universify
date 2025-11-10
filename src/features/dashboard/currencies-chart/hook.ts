@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { api } from "@/trpc/react";
+import { useGeneralCryptoPrices } from "@/lib/api-hooks";
 import type { ChartConfig } from "@/components/ui/chart";
 
 const getTimeRangeDescription = (timeRange: string): string => {
@@ -42,8 +42,7 @@ const useCurrenciesChart = () => {
     },
   } satisfies ChartConfig;
 
-  const [cryptoData] =
-    api.cryptoPrices.selectGeneralCryptoPrices.useSuspenseQuery();
+  const { data: cryptoData } = useGeneralCryptoPrices();
 
   const filteredData = cryptoData.filter((item) => {
     const date = new Date(item.date);
